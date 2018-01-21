@@ -4,6 +4,8 @@
 
 #define GRAPHICS_OGL                (0 \
 									| PLATFORM_WIN32 \
+                                    | PLATFORM_MAC \
+                                    | PLATFORM_IOS \
                                     )
 
 #define GRAPHICS_D3D9               (0 \

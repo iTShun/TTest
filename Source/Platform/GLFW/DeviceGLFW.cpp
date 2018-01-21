@@ -65,7 +65,7 @@ bool DeviceGLFW::init(Device::Parameters& para)
 		glfwWindowHint(GLFW_ALPHA_BITS, 8);
 		glfwWindowHint(GLFW_DEPTH_BITS, 24);
 		glfwWindowHint(GLFW_STENCIL_BITS, 8);
-
+        
 		char* title = nullptr;
 #if PLATFORM_WIN32
 		int len = WideCharToMultiByte(CP_ACP, 0, para._szTitle, wcslen(para._szTitle), NULL, 0, NULL, NULL);

@@ -16,6 +16,17 @@
 #		include "Framework/Win32/glfw3native.h"
 #	endif
 
+#if PLATFORM_MAC
+
+#   ifndef GLFW_EXPOSE_NATIVE_NSGL
+#   define GLFW_EXPOSE_NATIVE_NSGL
+#endif
+#   ifndef GLFW_EXPOSE_NATIVE_COCOA
+#   define GLFW_EXPOSE_NATIVE_COCOA
+#endif
+#   include "Framework/Mac/glfw3native.h"
+#endif
+
 #	if _MSC_VER > 1800
 #		pragma comment(lib,"glfw3-2015.lib")
 #	else
@@ -40,6 +51,8 @@ public:
 
 #if PLATFORM_WIN32
 	inline HWND getWin32Window() const { return glfwGetWin32Window(_pWindow); }
+#elif PLATFORM_MAC
+    inline id getCocoaWindow() const { return glfwGetCocoaWindow(_pWindow); }
 #endif
 
 public:

@@ -21,6 +21,11 @@
 #		include "Framework/Win32/glew.h"
 #		pragma comment(lib,"opengl32.lib")
 #		pragma comment(lib,"glew32.lib")
+
+#	elif PLATFORM_MAC
+#       include <OpenGL/gl.h>
+#       include <OpenGL/glu.h>
+#       include <OpenGL/glext.h>
 #	endif
 
 #	undef GLFW_SUPPORT
