@@ -6,7 +6,7 @@
 NS_BEGIN
 
 DeviceGLFW::DeviceGLFW()
-: Ref(0, __FILE__, __LINE__, __FUNCTION__, "DeviceGLFW")
+: Ref(sizeof(DeviceGLFW), 0, __FILE__, __LINE__, __FUNCTION__, "DeviceGLFW")
 , _pWindow(nullptr)
 , _pMonitor(nullptr)
 {

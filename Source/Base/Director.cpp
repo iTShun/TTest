@@ -38,7 +38,6 @@ void Director::setDevice(Device* device)
 	if (_ptrDevice)
 	{
 		_ptrDevice->closeDevice();
-		//_ptrDevice.~ref_ptr();
 	}
 	
 	_ptrDevice = device;

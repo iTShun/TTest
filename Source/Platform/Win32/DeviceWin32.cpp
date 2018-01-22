@@ -8,7 +8,7 @@
 NS_BEGIN
 
 Device::Device()
-: Ref(0, __FILE__, __LINE__, __FUNCTION__, "DeviceWin32")
+: Ref(sizeof(Device), 0, __FILE__, __LINE__, __FUNCTION__, "DeviceWin32")
 , _ptrGraphics()
 #if GLFW_SUPPORT
 , _ptrDeviceGLFW()

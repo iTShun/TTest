@@ -6,7 +6,7 @@
 NS_BEGIN
 
 GraphicsOGL::GraphicsOGL()
-: Ref(0, __FILE__, __LINE__, __FUNCTION__, "GraphicsOGL")
+: Ref(sizeof(GraphicsOGL), 0, __FILE__, __LINE__, __FUNCTION__, "GraphicsOGL")
 {
 }
 

@@ -10,11 +10,11 @@ Ref::Ref()
 {
 }
 
-Ref::Ref(unsigned int pool, const char* file, unsigned int ln, const char* func, const char* describe /*= 0*/)
+Ref::Ref(unsigned int sz, unsigned int pool, const char* file, unsigned int ln, const char* func, const char* describe /*= 0*/)
 : _nReferenceCount(1) // when the Ref is created, the reference count of it is 1
 {
 #if DEBUG_MODE
-	MemoryTracker::getInstance().recordAlloc(this, sizeof(this), pool, file, ln, func, describe);
+	MemoryTracker::getInstance().recordAlloc(this, sz, pool, file, ln, func, describe);
 #endif
 }
 
