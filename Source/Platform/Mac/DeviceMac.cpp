@@ -8,9 +8,10 @@
 NS_BEGIN
 
 Device::Device()
-: _pGraphics(nullptr)
+: Ref(0, __FILE__, __LINE__, __FUNCTION__, "DeviceMac")
+, _ptrGraphics()
 #if GLFW_SUPPORT
-, _pDeviceGLFW(nullptr)
+, _ptrDeviceGLFW()
 #endif
 {
 }
@@ -61,12 +62,12 @@ bool Device::initEmbeddedInDevice(DeviceEmbeddedType type, DeviceProtocol* devic
 		case soldier::kDETGLFW:
 #if GLFW_SUPPORT
 		{
-			if (_pDeviceGLFW)
-				_pDeviceGLFW->closeDevice();
+			if (_ptrDeviceGLFW)
+				_ptrDeviceGLFW->closeDevice();
 
-			_pDeviceGLFW = (DeviceGLFW*)device;
-			_sParameters = _pDeviceGLFW->getDeviceParameters();
-			retain();
+			_ptrDeviceGLFW = (DeviceGLFW*)device;
+			_sParameters = _ptrDeviceGLFW->getDeviceParameters();
+            
 			return true;
 		}
 #endif
@@ -86,16 +87,15 @@ bool Device::init(Device::Parameters& para)
 			break;
 
 #if GLFW_SUPPORT
-        _pDeviceGLFW = DeviceGLFW::create(para);
-        if (!_pDeviceGLFW)
+        _ptrDeviceGLFW = DeviceGLFW::create(para);
+        if (!_ptrDeviceGLFW)
             break;
-        _pGraphics = GraphicsOGL::create();
-        if (!_pGraphics)
+        _ptrGraphics = GraphicsOGL::create();
+        if (!_ptrGraphics)
             break;
 #endif
 
 		_sParameters = para;
-		retain();
 
 		return true;
 	} while (0);
@@ -106,8 +106,8 @@ bool Device::init(Device::Parameters& para)
 void* Device::getCocoaWindow() const
 {
 #if GLFW_SUPPORT
-	if (_pDeviceGLFW)
-		return _pDeviceGLFW->getCocoaWindow();
+	if (_ptrDeviceGLFW)
+		return _ptrDeviceGLFW->getCocoaWindow();
 #endif
 
 	return nullptr;
@@ -119,8 +119,8 @@ bool Device::run()
 	PoolManager::getInstance()->getCurrentPool()->clear();
 
 #if GLFW_SUPPORT
-	if (_pDeviceGLFW)
-		return _pDeviceGLFW->run();
+	if (_ptrDeviceGLFW)
+		return _ptrDeviceGLFW->run();
 #endif
 	return false;
 }
@@ -128,10 +128,9 @@ bool Device::run()
 void Device::closeDevice()
 {
 #if GLFW_SUPPORT
-	if (_pDeviceGLFW)
+	if (_ptrDeviceGLFW)
 	{
-		_pDeviceGLFW->closeDevice();
-		SAFE_RELEASE_NULL(_pDeviceGLFW);
+		_ptrDeviceGLFW->closeDevice();
 	}
 #endif
 }

@@ -2,8 +2,6 @@
 
 #include "Platform/Platform.h"
 
-#define REF_LEAK_DETECTION			1
-
 NS_BEGIN
 
 class Ref;
@@ -82,10 +80,6 @@ public:
 	*/
 	unsigned int getReferenceCount() const;
 
-	// Memory leak diagnostic data (only included when REF_LEAK_DETECTION is defined and its value isn't zero)
-#if REF_LEAK_DETECTION
-	static void printLeaks();
-#endif
 protected:
 	Ref();
 	Ref(unsigned int pool, const char* file, unsigned int ln, const char* func, const char* describe = 0);

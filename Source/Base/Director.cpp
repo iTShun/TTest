@@ -8,7 +8,7 @@ NS_BEGIN
 static Director *s_pSharedDirector = nullptr;
 
 Director::Director()
-: Ref(0, __FILE__, __LINE__, __FUNCTION__, "Director")
+: Ref()
 , _ptrDevice()
 {
 }
