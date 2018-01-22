@@ -6,6 +6,7 @@
 NS_BEGIN
 
 GraphicsOGL::GraphicsOGL()
+: Ref(0, __FILE__, __LINE__, __FUNCTION__, "GraphicsOGL")
 {
 }
 
@@ -32,9 +33,6 @@ bool GraphicsOGL::init()
 {
 	do 
 	{
-		
-
-		retain();
 
 		return true;
 	} while (0);

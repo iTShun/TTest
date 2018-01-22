@@ -88,6 +88,7 @@ public:
 #endif
 protected:
 	Ref();
+	Ref(unsigned int pool, const char* file, unsigned int ln, const char* func, const char* describe = 0);
 
 protected:
 	//! The reference counter. Mutable to do reference counting on const objects.

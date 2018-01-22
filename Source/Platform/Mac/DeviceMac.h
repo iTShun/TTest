@@ -29,6 +29,7 @@ public:
 			, _szTitle("")
 			, _bFullscreen(false)
 			, _bResizable(false)
+			, _bDecorated(true)
 		{}
 
 		int _nXDesiredPositionOnScreen;
@@ -41,6 +42,7 @@ public:
 
 		bool _bFullscreen;
 		bool _bResizable;
+		bool _bDecorated;
 	};
 
 public:

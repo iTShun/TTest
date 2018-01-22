@@ -8,7 +8,8 @@ NS_BEGIN
 static Director *s_pSharedDirector = nullptr;
 
 Director::Director()
-: _pDevice(nullptr)
+: Ref(0, __FILE__, __LINE__, __FUNCTION__, "Director")
+, _ptrDevice()
 {
 }
 
@@ -16,6 +17,9 @@ Director::~Director()
 {
 	PoolManager::getInstance()->getCurrentPool()->clear();
 
+#if REF_LEAK_DETECTION
+	printLeaks();
+#endif
 	s_pSharedDirector = nullptr;
 }
 
@@ -31,13 +35,13 @@ Director* Director::getInstance()
 
 void Director::setDevice(Device* device)
 {
-	if (_pDevice)
+	if (_ptrDevice)
 	{
-		_pDevice->closeDevice();
-		SAFE_RELEASE_NULL(_pDevice);
+		_ptrDevice->closeDevice();
+		//_ptrDevice.~ref_ptr();
 	}
-
-	_pDevice = device;
+	
+	_ptrDevice = device;
 }
 
 NS_END

@@ -6,7 +6,8 @@
 NS_BEGIN
 
 DeviceGLFW::DeviceGLFW()
-: _pWindow(nullptr)
+: Ref(0, __FILE__, __LINE__, __FUNCTION__, "DeviceGLFW")
+, _pWindow(nullptr)
 , _pMonitor(nullptr)
 {
 	glfwSetErrorCallback(DeviceGLFW::onGLFWError);
@@ -59,6 +60,7 @@ bool DeviceGLFW::init(Device::Parameters& para)
 		}
 
 		glfwWindowHint(GLFW_RESIZABLE, para._bResizable ? GL_TRUE : GL_FALSE);
+		glfwWindowHint(GLFW_DECORATED, para._bDecorated ? GL_TRUE : GL_FALSE);
 		glfwWindowHint(GLFW_RED_BITS, 8);
 		glfwWindowHint(GLFW_GREEN_BITS, 8);
 		glfwWindowHint(GLFW_BLUE_BITS, 8);
@@ -99,8 +101,6 @@ bool DeviceGLFW::init(Device::Parameters& para)
 
 		_sParameters = para;
 
-		retain();
-
 		return true;
 	} while (0);
 
@@ -111,7 +111,8 @@ bool DeviceGLFW::run()
 {
 	glfwPollEvents();
 
-	glfwSwapBuffers(_pWindow);
+	if (_pWindow)
+		glfwSwapBuffers(_pWindow);
 
 	if (_pWindow)
 		return glfwWindowShouldClose(_pWindow) ? false : true;

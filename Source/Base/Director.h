@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Base/Ref.h"
-#include "Base/Console.h"
+#include "Base/Ptr.h"
 
 NS_BEGIN
 
@@ -20,9 +20,9 @@ public:
 
 	void setDevice(Device* device);
 public:
-	inline Device* getDevice() const { return _pDevice; }
+	inline Device* getDevice() const { return _ptrDevice.get(); }
 protected:
-	Device* _pDevice;
+	ref_ptr<Device> _ptrDevice;
 };
 
 NS_END

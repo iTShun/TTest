@@ -1,6 +1,7 @@
 #include "Ref.h"
 #include "Base/Console.h"
 #include "Base/PoolManager.h"
+#include "Base/MemoryTracker.h"
 
 #if REF_LEAK_DETECTION
 #include <algorithm>    // std::find
@@ -22,6 +23,22 @@ Ref::Ref()
 #if REF_LEAK_DETECTION
 	trackRef(this);
 #endif
+
+#if DEBUG_MODE
+	MemoryTracker::getInstance().recordAlloc(this, sizeof(this));
+#endif
+}
+
+Ref::Ref(unsigned int pool, const char* file, unsigned int ln, const char* func, const char* describe /*= 0*/)
+: _nReferenceCount(1) // when the Ref is created, the reference count of it is 1
+{
+#if REF_LEAK_DETECTION
+	trackRef(this);
+#endif
+
+#if DEBUG_MODE
+	MemoryTracker::getInstance().recordAlloc(this, sizeof(this), pool, file, ln, func, describe);
+#endif
 }
 
 Ref::~Ref()
@@ -29,6 +46,10 @@ Ref::~Ref()
 #if REF_LEAK_DETECTION
 	if (_nReferenceCount != 0)
 		untrackRef(this);
+#endif
+
+#if DEBUG_MODE
+	MemoryTracker::getInstance().recordDealloc(this);
 #endif
 }
 

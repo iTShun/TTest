@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Platform/DeviceProtocol.h"
+#include "Base/Ptr.h"
 
 #if PLATFORM_WIN32
 
@@ -27,6 +28,7 @@ public:
 			, _szTitle(L"")
 			, _bFullscreen(false)
 			, _bResizable(false)
+			, _bDecorated(true)
 		{}
 
 		int _nXDesiredPositionOnScreen;
@@ -39,6 +41,7 @@ public:
 
 		bool _bFullscreen;
 		bool _bResizable;
+		bool _bDecorated;
 	};
 
 public:
@@ -51,7 +54,7 @@ public:
 	HWND getWin32Window() const;
 
 public:
-	inline Graphics* getGraphicsDriver() const { return _pGraphics; }
+	inline Graphics* getGraphicsDriver() const { return _ptrGraphics.get(); }
 public:
 	//! Runs the device.
 	virtual bool run() override;
@@ -67,9 +70,9 @@ protected:
 protected:
 	Device::Parameters _sParameters;
 #if GLFW_SUPPORT
-	DeviceGLFW* _pDeviceGLFW;
+	ref_ptr<DeviceGLFW> _ptrDeviceGLFW;
 #endif
-	Graphics* _pGraphics;
+	ref_ptr<Graphics> _ptrGraphics;
 };
 
 NS_END
